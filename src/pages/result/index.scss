@@ -1,0 +1,197 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:700);
+
+.container-result {
+    background-image: url("../../media/result-bg.jpg");
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.content-wrapper {
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 12px;
+    border: 1px solid #008B8B;
+    width: 100%;
+    margin: 12px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 24px;
+    justify-content: center;
+}
+
+// -- vars
+$bg-color: #34495e;
+$default-size: 3em;
+$label-font-size: $default-size / 2.5;
+$label-font-size-redo: $default-size * 4;
+
+@mixin size($width, $height) {
+  height: $height;
+  width: $width;
+}
+@mixin draw-progress($progress, $color) {
+  .pie {
+    .half-circle {
+      border-color: $color;
+    }
+
+    .left-side {
+      transform: rotate($progress * 3.6deg);
+    }
+
+    @if $progress <= 50 {
+      .right-side {
+        display: none;
+      }
+    } @else {
+      clip: rect(auto, auto, auto, auto);
+
+      .right-side {
+        transform: rotate(180deg);
+      }
+    }
+  }
+}
+
+.pie-wrapper {
+@include size($default-size, $default-size);
+    float: left;
+    margin: 15px;
+    position: relative;
+
+&:nth-child(3n + 1) {
+     clear: both;
+ }
+
+.pie {
+@include size(100%, 100%);
+    clip: rect(0, $default-size, $default-size, $default-size / 2);
+    left: 0;
+    position: absolute;
+    top: 0;
+
+.half-circle {
+@include size(100%, 100%);
+    border: ($default-size / 10) solid #3498db;
+    border-radius: 50%;
+    clip: rect(0, $default-size / 2, $default-size, 0);
+    left: 0;
+    position: absolute;
+    top: 0;
+}
+}
+
+.label {
+    background: $bg-color;
+    border-radius: 50%;
+    color: #ecf0f1;
+    cursor: default;
+    display: block;
+    font-size: $label-font-size;
+    left: 10px;
+    line-height: $label-font-size-redo * .70;
+    position: absolute;
+    text-align: center;
+    top: -62px;
+
+.smaller {
+    color: #bdc3c7;
+    font-size: .45em;
+    padding-bottom: 20px;
+    vertical-align: super;
+}
+}
+
+.shadow {
+@include size(100%, 100%);
+    border: $default-size / 10 solid #bdc3c7;
+    border-radius: 50%;
+}
+
+  &.style-2 {
+    .label {
+          background: none;
+          color: #7f8c8d;
+
+      .smaller {
+          color: #bdc3c7;
+      }
+    }
+  }
+
+  &.progress-1 {
+    @include draw-progress(10, #1abc9c);
+  }
+  &.progress-2 {
+    @include draw-progress(20, #1abc9c);
+  }
+  &.progress-3 {
+    @include draw-progress(30, #1abc9c);
+  }
+  &.progress-4 {
+    @include draw-progress(40, #1abc9c);
+  }
+  &.progress-5 {
+    @include draw-progress(50, #1abc9c);
+  }
+  &.progress-6 {
+    @include draw-progress(60, #1abc9c);
+  }&.progress-7 {
+     @include draw-progress(70, #1abc9c);
+   }
+  &.progress-8 {
+    @include draw-progress(80, #1abc9c);
+  }
+  &.progress-9 {
+    @include draw-progress(90, #1abc9c);
+  }
+  &.progress-10 {
+    @include draw-progress(100, #1abc9c);
+   }
+
+}
+
+.ServicesWrapper{
+  margin: 20px 50px;
+  display:flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  border-radius: 16px;
+  background-color:#0f0f0fcc;
+}
+
+.Info{
+  width: 100%;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+h1{
+  color:white;
+  margin:10px 5px;
+}
+p{
+  color:white;
+  margin:0px 5px;
+}
+button, input[type="submit"], input[type="reset"] {
+  background: #4483b4;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  margin:10px 5px;
+}
