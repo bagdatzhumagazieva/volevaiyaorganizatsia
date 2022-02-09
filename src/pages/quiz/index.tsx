@@ -78,7 +78,7 @@ export const QuizPage = () => {
                 email: userData?.email,
                 age: userData?.age,
                 is_parent: userData?.isParent,
-                country: userData?.city,
+                sport: userData?.sport,
                 answers: answers.map((e, index) => ({
                     questionId: Number(e.questionId),
                     answerId: Number(e.answerId),
@@ -87,12 +87,10 @@ export const QuizPage = () => {
                 })),
                 results: newResult,
             };
-            createTest(body).then(res => console.log(res))
+            createTest(body);
             localStorage.setItem('result', JSON.stringify(newResult));
             history.push('/result');
-            console.log(body)
         }
-        console.log(Object.values(data));
     }
 
     const createTest = async (data: any) => {
@@ -100,7 +98,8 @@ export const QuizPage = () => {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data)
-        })
+        }).then(res => res.text()).then(data => {
+            console.log(data)})
     }
 
     return (
@@ -122,7 +121,7 @@ export const QuizPage = () => {
                             <div key={`q_${idx + 1}`}>
                                 <Typography
                                     variant="h6"
-                                    style={{ fontWeight: 'bold', color: 'black', margin: 12}}
+                                    style={{ fontWeight: 'bold', color: 'black', margin: 12, fontSize: 22, lineHeight: '28px'}}
                                 >
                                     {`${idx + 1}. ${q}`}
                                 </Typography>
@@ -137,16 +136,36 @@ export const QuizPage = () => {
                                             onChange={onChange}
                                         >
                                             <div className='radio-wrapper'>
-                                                <FormControlLabel style={{ width: '100%'}} value="1" control={<Radio required color="secondary" />} label="Да" />
+                                                <FormControlLabel
+                                                    style={{ width: '100%'}}
+                                                    value="1"
+                                                    control={<Radio required color="secondary" />}
+                                                    label={<Typography style={{fontSize: 19, color: 'black'}}>Да</Typography>}
+                                                />
                                             </div>
                                             <div className='radio-wrapper'>
-                                                <FormControlLabel value="2" control={<Radio required color="secondary" />} label="Скорее да, чем нет" />
+                                                <FormControlLabel
+                                                    style={{ width: '100%'}}
+                                                    value="2"
+                                                    control={<Radio required color="secondary" />}
+                                                    label={<Typography style={{fontSize: 19, color: 'black'}}>Скорее да, чем нет</Typography>}
+                                                />
                                             </div>
                                             <div className='radio-wrapper'>
-                                                <FormControlLabel value="3" control={<Radio required color="secondary" />} label="Скорее нет, чем да" />
+                                                <FormControlLabel
+                                                    style={{ width: '100%'}}
+                                                    value="3"
+                                                    control={<Radio required color="secondary" />}
+                                                    label={<Typography style={{fontSize: 19, color: 'black'}}>Скорее нет, чем да</Typography>}
+                                                />
                                             </div>
                                             <div className='radio-wrapper'>
-                                                <FormControlLabel value="4" control={<Radio required color="secondary" />} label="Нет" />
+                                                <FormControlLabel
+                                                    style={{ width: '100%'}}
+                                                    value="4"
+                                                    control={<Radio required color="secondary" />}
+                                                    label={<Typography style={{fontSize: 19, color: 'black'}}>Нет</Typography>}
+                                                />
                                             </div>
                                         </RadioGroup>
                                     )}

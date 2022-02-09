@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { useHistory } from 'react-router-dom';
 import {AuthLayout} from "../authLayout";
 import './index.css';
-import {Checkbox, FormControlLabel} from "@mui/material";
+import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup} from "@mui/material";
 
 export interface IUser {
     firstName: string;
@@ -10,7 +10,7 @@ export interface IUser {
     phone: string;
     email: string;
     age: string;
-    city: string;
+    sport: string;
     isParent: boolean;
 }
 export const LoginPage = () => {
@@ -21,7 +21,7 @@ export const LoginPage = () => {
         phone: '',
         email: '',
         age: '',
-        city: '',
+        sport: '',
         isParent: false,
     })
 
@@ -30,13 +30,13 @@ export const LoginPage = () => {
         setUserData({...userData, [name]: value})
     };
 
-    const onCheckbox = () => {
-        setUserData({...userData, isParent: !userData.isParent})
+    const onCheckbox = (type: 'parent' | 'child') => {
+        setUserData({...userData, isParent: type === 'parent'})
     }
 
     const handleSubmit = () => {
-        const { firstName, city, age, email, phone, lastName } = userData;
-        if (firstName && city && age && email && phone && lastName) {
+        const { firstName, sport, age, email, phone, lastName } = userData;
+        if (firstName && sport && age && email && phone && lastName) {
             localStorage.setItem('userData', JSON.stringify(userData));
             history.push('/quiz')
         }
@@ -76,22 +76,45 @@ export const LoginPage = () => {
                             </div>
                             <div className="login__field">
                                 <i className="login__icon fas fa-user"/>
-                                <input name='city' value={userData.city}
+                                <input name='sport' value={userData.sport}
                                        onChange={handleChange} type="text" className="login__input" placeholder="Вид спорта"/>
                             </div>
-                            <FormControlLabel
-                                value="is_parent"
-                                control={
-                                    <Checkbox
-                                        checked={userData.isParent}
-                                        onClick={onCheckbox}
+                            <FormControl>
+                                <FormLabel
+                                    id="demo-radio-buttons-group-label"
+                                    style={{ fontWeight: 'bold', marginTop: 36, color: 'rgba(0, 0, 0, 0.6)' }}
+                                >
+                                    Тест проходит
+                                </FormLabel>
+                                <RadioGroup
+                                    aria-labelledby="demo-radio-buttons-group-label"
+                                    defaultValue="child"
+                                    style={{ display: 'flex' }}
+                                    name="isParent"
+                                >
+                                    <FormControlLabel
                                         style={{ color: 'white' }}
+                                        value="parent"
+                                        control={
+                                            <Radio
+                                                onClick={() => onCheckbox('parent')}
+                                                style={{color: 'rgba(0, 0, 0, 0.6)'}}
+                                            />
+                                        }
+                                        label="Родитель"
                                     />
-                                }
-                                label="Я родитель"
-                                labelPlacement="start"
-                                style={{ color: 'white' }}
-                            />
+                                    <FormControlLabel
+                                        style={{ color: 'white' }}
+                                        value="child" control={
+                                            <Radio
+                                                onClick={() => onCheckbox('child')}
+                                                style={{color: 'rgba(0, 0, 0, 0.6)'}}
+                                            />
+                                        }
+                                        label="Ребенок"
+                                    />
+                                </RadioGroup>
+                            </FormControl>
                             <button onClick={handleSubmit} className="button login__submit">
                                 <span className="button__text">Начать тест</span>
                                 {/*<i className="button__icon fas fa-chevron-right"/>*/}
